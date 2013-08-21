@@ -1,8 +1,12 @@
 ---
 applications:
 - name: spring-env
-  memory: 512M
+  memory: 256M
   instances: 1
-  host: spring-env-${random-word}
-  url: cfapps.io
-  path: target/spring-hello-env-1.0.0-BUILD-SNAPSHOT
+  host: spring-env
+  domain: 10.192.36.35.xip.io
+  path: target/spring-env.war
+  env:
+     CUSTOM_HELLO_ENV_VAR: bravissimo
+#     HTTP_PROXY: goodway.mycompany:8080
+#     HTTPS_PROXY: goodway.mycompany:8080
