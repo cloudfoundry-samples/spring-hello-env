@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -35,8 +38,17 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
+		String serverIp = "unknown";
+
+		try {
+			serverIp = InetAddress.getLocalHost().getHostAddress();
+ 		} catch (UnknownHostException e) {
+			serverIp = "unable to get it " + e.getMessage();
+		}
 		
 		model.addAttribute("serverTime", formattedDate );
+		model.addAttribute("serverIp", serverIp );
+		model.addAttribute("deaPort", System.getenv().get("VCAP_APP_PORT") );
 		
 		return "home";
 	}
